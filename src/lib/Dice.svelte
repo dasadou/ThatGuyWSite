@@ -15,6 +15,7 @@
             // cube.applyTorqueImpulse(new Vector3(0, 1, 0));
         }, {autoStart: false}
     )
+    // TODO: make a smooth transition to show face directly to camera by slowing down rotation
 
     interactivity();
 
