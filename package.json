@@ -12,6 +12,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@types/eslint": "^9.6.0",
@@ -27,6 +28,12 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
-		"my-app": "file:"
+		"@theatre/core": "^0.7.2",
+		"@theatre/studio": "^0.7.2",
+		"@threlte/core": "^8.0.0-next.31",
+		"@threlte/extras": "^9.0.0-next.39",
+		"@threlte/theatre": "^3.0.0-next.9",
+		"my-app": "file:",
+		"three": "^0.170.0"
 	}
 }
