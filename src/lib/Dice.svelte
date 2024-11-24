@@ -1,10 +1,21 @@
 ﻿<script lang="ts">
-    import {T, useThrelte} from '@threlte/core';
-    import {interactivity, TrackballControls} from "@threlte/extras";
-    import {BoxGeometry, CanvasTexture, MeshBasicMaterial} from "three";
-    import {get} from "svelte/store";
+    import {T, useThrelte, useTask} from '@threlte/core';
+    import {RigidBody} from "@threlte/rapier";
+    import {RoundedBoxGeometry, interactivity} from "@threlte/extras";
+    import {CanvasTexture, Euler, Vector3, MeshBasicMaterial} from "three";
 
-    export let rotateSpeed: number = 10;
+    let speed: Vector3 = new Vector3(2, 2, 2);
+    let cube: any;
+    const {start, stop, started, task} = useTask(
+        (delta) => {
+            // This function will be executed on every frame
+            let randomRot = getRandomRotation();
+
+            cube.rotation.set(randomRot.x, randomRot.y, randomRot.z / 10, "XYZ");
+            // cube.applyTorqueImpulse(new Vector3(0, 1, 0));
+        }, {autoStart: false}
+    )
+
     interactivity();
 
     function createTextTexture(text: string) {
@@ -36,57 +47,37 @@
 
     function getRandomRotation() {
         // Generate random rotation angles 
-        const x = Math.random() * 2 * Math.PI;
-        const y = Math.random() * 2 * Math.PI;
-        const z = Math.random() * 2 * Math.PI;
-        return {x, y, z};
-    }
-
-    let cube: any;
-    const {scene, invalidate} = useThrelte();
-
-    function onDiceClick() {
-        // console.log('camera');
-        // console.log(camera);
-        // camera.lookAt(0, 0, 0);
-        // if(cube){
-        console.log('onDiceClick1');
-        console.log(cube);
-        console.log(typeof cube);
-        const randomRotation = getRandomRotation();
-        console.log('randomRotation', randomRotation);
-        console.log("rotation: ", cube.rotation);
-        cube.rotation.set(randomRotation.x, randomRotation.y, randomRotation.z);
-        // }
+        return new Euler(Math.random() * 10, Math.random() * 10, Math.random() * 10)
 
     }
-
 </script>
-<T.GridHelper args={[10, 10]}/>
 
-<!-- face.materialIndex = face du de -->
-<T.Mesh
-        onpointerover={(e)=>{
-            const randomRot = getRandomRotation();
-            e.object.rotation.set(randomRot.x,randomRot.y,randomRot.z,"XYZ");
+<!-- face.materialIndex = face du de --
+linearVelocity={[5,5,5]}
+-->
+<RigidBody>
+
+    <T.Mesh position.y={0.5}
+            material={materials}
+
+            oncreate={(e)=>{ cube = e.valueOf(); console.log(cube);}}
+            onpointerup={()=>{
+            console.log("should start")
+            stop();
         }}
-        position.y={0.5}
-        material={materials}
-        onclick={(ref:any) => {
-    console.log(ref.intersections[0].face.materialIndex + 1);
-    onDiceClick();
+
+            onpointerdown={()=>{
+            console.log("should stop");
+            start();
+            // cube.object.rotation.set(randomRot.x,randomRot.y,randomRot.z,"XYZ");
+        }}
+
+
+            onclick={(e:any) => {
+    console.log(e.intersections[0].face.materialIndex + 1);
   }}>
-    <T.BoxGeometry args={[1, 1, 1]}/>
-</T.Mesh>
+        <T.BoxGeometry></T.BoxGeometry>
 
-<T.PerspectiveCamera
-        bind:this={camera}
-        makeDefault
-        position={[1, 1, 1]}
-        oncreate={(ref) => {
-    ref.lookAt(0, 0, 0);
-  }}
->
-    <TrackballControls {rotateSpeed}></TrackballControls>
-</T.PerspectiveCamera>
 
+    </T.Mesh>
+</RigidBody>

@@ -32,6 +32,7 @@
 		"@theatre/studio": "^0.7.2",
 		"@threlte/core": "^8.0.0-next.31",
 		"@threlte/extras": "^9.0.0-next.39",
+		"@threlte/rapier": "^3.0.0-next.16",
 		"@threlte/theatre": "^3.0.0-next.9",
 		"my-app": "file:",
 		"three": "^0.170.0"
