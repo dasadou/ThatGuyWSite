@@ -1,5 +1,5 @@
 ﻿<script lang="ts">
-    import {useTask} from '@threlte/core';
+    import {T, useTask} from '@threlte/core';
     import {RigidBody} from "@threlte/rapier";
     import {HTML, interactivity, RoundedBoxGeometry} from "@threlte/extras";
     import {CanvasTexture, Euler, MeshBasicMaterial} from "three";
