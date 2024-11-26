@@ -11,7 +11,7 @@
 <T.GridHelper args={[5, 5]}/>
 <T.PerspectiveCamera
         makeDefault
-        position={[1, 1, 1]}
+        position={[8, 0, 1]}
         oncreate={(ref) => {
     ref.lookAt(0, 0, 0);
   }}

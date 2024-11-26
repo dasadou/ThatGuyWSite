@@ -1,17 +1,18 @@
 ﻿<script lang="ts">
     import {T, useThrelte, useTask} from '@threlte/core';
     import {RigidBody} from "@threlte/rapier";
-    import {RoundedBoxGeometry, interactivity} from "@threlte/extras";
+    import {RoundedBoxGeometry, interactivity, HTML} from "@threlte/extras";
     import {CanvasTexture, Euler, Vector3, MeshBasicMaterial} from "three";
 
     let speed: Vector3 = new Vector3(2, 2, 2);
     let cube: any;
+    let faces: any;
     const {start, stop, started, task} = useTask(
         (delta) => {
             // This function will be executed on every frame
             let randomRot = getRandomRotation();
 
-            cube.rotation.set(randomRot.x, randomRot.y, randomRot.z / 10, "XYZ");
+            faces.rotation.set(randomRot.x, randomRot.y, randomRot.z / 10, "XYZ");
             // cube.applyTorqueImpulse(new Vector3(0, 1, 0));
         }, {autoStart: false}
     )
@@ -58,10 +59,10 @@ linearVelocity={[5,5,5]}
 -->
 <RigidBody>
 
-    <T.Mesh position.y={0.5}
+    <T.Mesh position.y={0.15}
             material={materials}
 
-            oncreate={(e)=>{ cube = e.valueOf(); console.log(cube);}}
+            oncreate={(e)=>{ faces = e.valueOf(); console.log(faces);}}
             onpointerup={()=>{
             console.log("should start")
             stop();
@@ -77,8 +78,13 @@ linearVelocity={[5,5,5]}
             onclick={(e:any) => {
     console.log(e.intersections[0].face.materialIndex + 1);
   }}>
-        <T.BoxGeometry></T.BoxGeometry>
 
 
+        <RoundedBoxGeometry args={[1.5,1.5,1.5]}/>
     </T.Mesh>
+
+    <HTML position={[1,1,1]}>
+
+    <div>WHATATATATATAT</div>
+    </HTML>
 </RigidBody>
