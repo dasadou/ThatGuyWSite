@@ -1,13 +1,15 @@
 ﻿<script lang="ts">
-    import {T, useThrelte, useTask} from '@threlte/core';
+    import {useTask} from '@threlte/core';
     import {RigidBody} from "@threlte/rapier";
-    import {RoundedBoxGeometry, interactivity, HTML} from "@threlte/extras";
-    import {CanvasTexture, Euler, Vector3, MeshBasicMaterial} from "three";
+    import {HTML, interactivity, RoundedBoxGeometry} from "@threlte/extras";
+    import {CanvasTexture, Euler, MeshBasicMaterial} from "three";
 
-    let speed: Vector3 = new Vector3(2, 2, 2);
-    let cube: any;
+    // let speed: Vector3 = new Vector3(2, 2, 2);
+    // let cube: any;
     let faces: any;
-    const {start, stop, started, task} = useTask(
+    let roundedBoxDimension = [1.5, 1.5, 1.5] as unknown as undefined;
+    // const {start, stop, started, task} = useTask(
+    const {start, stop} = useTask(
         (delta) => {
             // This function will be executed on every frame
             let randomRot = getRandomRotation();
@@ -75,12 +77,12 @@ linearVelocity={[5,5,5]}
         }}
 
 
-            onclick={(e:any) => {
+            onclick={(e) => {
     console.log(e.intersections[0].face.materialIndex + 1);
   }}>
 
 
-        <RoundedBoxGeometry args={[1.5,1.5,1.5]}/>
+        <RoundedBoxGeometry args={roundedBoxDimension}/>
     </T.Mesh>
 
     <HTML position={[1,1,1]}>
